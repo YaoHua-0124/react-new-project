@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>实例组件的state属性</title>
+</head>
+
+<body>
+  <!-- 准备好一个容器-->
+  <div id="test"></div>
+
+  <!-- 引入react核心库-->
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <!-- 引入react-dom, 用于支持react操作DOM-->
+  <script type="text/javascript" src="../../js/react-dom.development.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+
+  <script type="text/babel">/* 此处一定要写babel*/
+    /* 
+      需求：
+        点击文字，改变天气状态
+     */
+    // 1.创建类式组件
+    class Wrather extends React.Component {
+      /* // 构造器调用几次？ ——一次
+      constructor(props) {
+        super(props)
+        this.state = { isHot: false }
+        // 解决changeWeather中this指向问题
+        this.changeWeather = this.changeWeather.bind(this)
+      } */
+      // 初始化状态
+      state = { isHot: false }
+      render() {
+        return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
+      }
+
+      // 箭头函数没有自己的this，他的this即是外层函数的this
+      changeWeather = ()=>{
+        let isHot = !this.state.isHot
+        // 状态必须通过setState进行更新，且更新不会影响未重新设置的状态
+        this.setState({isHot: isHot})
+      }
+    }
+    // 2.渲染组件到页面
+    ReactDOM.render(<Wrather/>, document.getElementById('test'))
+  </script>
+</body>
+
+</html>

@@ -39,6 +39,20 @@
     ReactDOM.render(<Person name="张三" age="18" sex="男"/>, document.getElementById('test'))
     ReactDOM.render(<Person {...p}/>, document.getElementById('test'))
     // ReactDOM.render(React.createElement(Person, { name: "\u5F20\u4E09", age: "18", sex: "\u7537" }), document.getElementById('test'));
+
+
+    /*
+      ES知识点
+        关于展开运算符（...）
+        1、可以展开一个数组
+          let arr = [1,2,3,4]
+          console.log(...arr);  //输出——>1,2,3,4
+        2、不能展开对象。
+        3、可以对对象进行复制
+          let obj1 = {a:1, b:2}
+          let obj2 = {...obj}  //深拷贝，obj1改变，obj2不会改变
+          console.log(obj2)    //输出——>{a:1, b:2}
+    */
   </script>
 </body>
 

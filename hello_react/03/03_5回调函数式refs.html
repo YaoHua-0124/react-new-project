@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>回调函数式refs</title>
+</head>
+<body>
+  <!-- 准备好一个容器-->
+  <div id="test"></div>
+
+  <!-- 引入react核心库-->
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <!-- 引入react-dom, 用于支持react操作DOM-->
+  <script type="text/javascript" src="../../js/react-dom.development.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/prop-types.js"></script>
+
+  <script type="text/babel">/* 此处一定要写babel*/
+    // 1.创建类式组件
+    class MyComponent extends React.Component {
+      showData = (ref) => {
+        const {input1} = this
+        alert(input1.value)
+      }
+      showData1 = (ref) => {
+        const {input2} = this
+        alert(input2.value)
+      }
+      render() {
+        return (
+          <div>
+            <input ref={(currentNode) => {this.input1 = currentNode}} type="text" placeholder="点击按钮显示数据"/>
+            <button onClick={this.showData}>点我提示左侧的数据</button>
+            <input ref={(currentNode) => {this.input2 = currentNode}} onBlur={this.showData1} type="text" placeholder="失去焦点显示数据"/>
+          </div>
+        )
+      }
+    }
+
+    // 2.渲染组件到页面
+    ReactDOM.render(<MyComponent/>, document.getElementById('test'))
+    // const p = {name:"张三", age:"18", sex:"男"}
+    // ReactDOM.render(<Person {...p}/>, document.getElementById('test'))
+    // ReactDOM.render(React.createElement(Person, { name: "\u5F20\u4E09", age: "18", sex: "\u7537" }), document.getElementById('test'));
+
+  </script>
+</body>
+</html>

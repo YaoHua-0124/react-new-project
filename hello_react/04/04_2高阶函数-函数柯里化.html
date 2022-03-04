@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>createRef</title>
+</head>
+<body>
+  <!-- 准备好一个容器-->
+  <div id="test"></div>
+
+  <!-- 引入react核心库-->
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <!-- 引入react-dom, 用于支持react操作DOM-->
+  <script type="text/javascript" src="../../js/react-dom.development.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/prop-types.js"></script>
+
+  <script type="text/babel">/* 此处一定要写babel*/
+
+    /*
+      高阶函数概念：如果一个函数符合下面两个规范中的任何一个，那么该函数就是高阶函数
+        1.若A函数，接收的参数是一个函数，那么A就可以称之为高阶函数
+        2.若A函数，调用的返回值仍是一个函数，那么A就可以称之为高阶函数
+      
+      函数的柯里化：通过函数调用返回函数的方式，实现多次接收参数最后统一处理的函数编码形式
+      
+    */
+
+    // 1.创建类式组件
+    class Login extends React.Component {
+      state = {
+        username: '',
+        password: ''
+      }
+      
+      saveFormData = (dataType) => {
+        return(
+          (event) => {
+            this.setState({[dataType]: event.target.value})
+            // switch (dataType) {
+            //   case "username":
+            //     this.setState({username: event.target.value})
+            //     break;
+            //   case "password":
+            //     this.setState({password: event.target.value})
+            //     break;
+            // }
+          }
+        )
+      }
+      
+      handleSubmit = (event) => {
+        event.preventDefault()
+        const {username,password} = this.state
+        alert(`您输入的用户名是：${username}, 你输入的密码是${password}`)
+      }
+      render() {
+        return (
+          <form action="#" onSubmit={this.handleSubmit}>
+            用户名<input onChange={this.saveFormData("username")} type="text" name="uesrname"/>
+            密 码<input onChange={this.saveFormData("password")} type="password" name="password"/>
+            <button>登录</button>
+          </form>
+        )
+      }
+    }
+
+    // 2.渲染组件到页面
+    ReactDOM.render(<Login/>, document.getElementById('test'))
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>createRef</title>
+</head>
+<body>
+  <!-- 准备好一个容器-->
+  <div id="test"></div>
+
+  <!-- 引入react核心库-->
+  <script type="text/javascript" src="../../js/react.development.js"></script>
+  <!-- 引入react-dom, 用于支持react操作DOM-->
+  <script type="text/javascript" src="../../js/react-dom.development.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/babel.min.js"></script>
+  <!-- 引入babel, 用于将jsx转换成js-->
+  <script type="text/javascript" src="../../js/prop-types.js"></script>
+
+  <script type="text/babel">/* 此处一定要写babel*/
+
+    /*
+      受控组件：
+        提前将数据准备好，不是非受控组件那样即用即拿。
+        好处，减少ref的使用
+    */
+
+
+    // 1.创建类式组件
+    class Login extends React.Component {
+      state = {
+        username: '',
+        password: ''
+      }
+      saveUesrname = (event) => {
+        this.setState({username: event.target.value})
+      }
+      savePassword = (event) => {
+        this.setState({password: event.target.value})
+      }
+      handleSubmit = (event) => {
+        event.preventDefault()
+        const {username,password} = this.state
+        alert(`您输入的用户名是：${username}, 你输入的密码是${password}`)
+      }
+      render() {
+        return (
+          <form action="#" onSubmit={this.handleSubmit}>
+            用户名<input onChange={this.saveUesrname} type="text" name="uesrname"/>
+            密 码<input onChange={this.savePassword} type="password" name="password"/>
+            <button>登录</button>
+          </form>
+        )
+      }
+    }
+
+    // 2.渲染组件到页面
+    ReactDOM.render(<Login/>, document.getElementById('test'))
+  </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>react生命周期总结（旧+新）</title>
+</head>
+<body>
+  <!-- 
+    一、旧生命周期
+      1.初始化阶段
+        constructor()            构造器
+            ↓
+        componentWillMount()     组件将要挂载（在React新版本中，不推荐使用）
+        （UNSAFF_componentWillMount）
+            ↓
+        render()                 渲染组件
+            ↓ 
+        componentDidMount()      组件已经挂载（非常常用。一般做一些初始化的操作）
+      2.更新阶段
+        compomnentWillReceiveProps()（父组件更改render时并且给子组件新的props值时触发，在React新版本中，不推荐使用）
+        （UNSAFF_compomnentWillReceiveProps）
+            ↓
+        shouldComponentUpdate()  是否更新组件，需要bool类型的返回值。
+            ↓
+        componentWillUpdate()    组件将要更新（在React新版本中，不推荐使用）
+        （UNSAFF_componentWillUpdate）
+            ↓
+        render()                 渲染组件 
+            ↓
+        componentDidUpdate()     组件已经更新
+      3.卸载组件  该生命周期函数由ReactDOM.unmountComponentAtNode()触发
+        componentWillUnmount()   组件将要卸载（非常常用）
+
+
+    二、新生命周期
+      1.即将弃用旧版本中的  
+          ①componentWillMount()（UNSAFF_componentWillMount）
+          ②compomnentWillReceiveProps()（UNSAFF_compomnentWillReceiveProps）
+          ③componentWillUpdate()（UNSAFF_componentWillUpdate）
+      2.新版本中添加的
+          ①getDrivedStateFromProps()  必须有返回值（状态对象或者null）,返回值就是组件的状态
+          ②getSnapshotBeforeUpdate()  必须要有返回值（对象或者null）,会作为componentDidUpdate()的第三个参数
+   -->
+</body>
+</html>

@@ -1,0 +1,12 @@
+.header{
+  width: 554px;
+  height: 30px;
+  margin: 20px 20px 10px;
+  border: 1px solid gainsboro;
+  outline: none;
+  border-radius: 3px;
+}
+.header:hover {
+  border-color:lightskyblue;
+  box-shadow: 0 0 10px 1px lightskyblue; 
+}

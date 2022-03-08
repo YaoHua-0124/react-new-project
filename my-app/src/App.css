@@ -1,0 +1,14 @@
+.container{
+  width: 600px;
+  /* height: 300px; */
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  margin: auto;
+}
+.checkbox{
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  vertical-align:middle;
+  margin-left: 20px;
+}

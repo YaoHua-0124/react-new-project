@@ -1,0 +1,9 @@
+.list{
+  margin: 10px 20px;
+  width: 558px;
+}
+.list ul{
+  margin: 0;
+  padding: 0;
+  vertical-align: text-bottom;
+}

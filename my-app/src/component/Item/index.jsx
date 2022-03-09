@@ -5,26 +5,35 @@ export default class Item extends Component {
   state = {
     display: false
   }
-  shoubtn = () => {
-    this.setState({display: true})
+
+  // 显示按钮
+  showbtn = () => {
+    this.setState({ display: true })
   }
+
+  // 隐藏按钮
   hiddenBtn = () => {
-    this.setState({display: false})
+    this.setState({ display: false })
   }
+
+  // 删除某一项
   deleteItem = () => {
-    console.log('删除删除');
+    this.props.deleteTodoItem(this.props.id)
+  }
+
+  // 更改事项的选中状态
+  changeCheck = (event) => {
+    this.props.changeCheck(this.props.id, event.target.checked)
   }
   render() {
-    const display = {
-      display: this.state.display? 'block':'none'
-    };
+    const { name, isDone } = this.props
     return (
       <div className='item'>
-          <li onMouseOver={this.shoubtn} onMouseLeave={this.hiddenBtn}>
-            <input type="checkbox" name="select" className='checkbox'/>
-            <span>你好</span>
-            <button style={display} onClick={this.deleteItem}>删除</button>
-          </li>
+        <li onMouseOver={this.showbtn} onMouseLeave={this.hiddenBtn}>
+          <input type="checkbox" name="select" className='checkbox' checked={isDone} onChange={this.changeCheck} />
+          <span>{name}</span>
+          <button style={{ display: this.state.display ? 'block' : 'none' }} onClick={this.deleteItem}>删除</button>
+        </li>
       </div>
     )
   }

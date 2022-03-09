@@ -21,7 +21,7 @@ export default class Footer extends Component {
     for (let index = 0; index < todos.length; index++) {
       if (todos[index].isDone === true) completedItem.push(todos[index])
     }
-    let isAllSelected = todos.length === completedItem.length ? true : false
+    let isAllSelected = todos.length === completedItem.length &&  todos.length!==0 ? true : false
     return (
       <div className='footer'>
         <input type="checkbox" checked={isAllSelected} onChange={this.selectdeAll} className='checkbox' name="selectAll" />

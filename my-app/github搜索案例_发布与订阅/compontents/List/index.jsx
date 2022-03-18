@@ -10,6 +10,11 @@ export default class List extends Component {
     LoadError:''
   }
   componentDidMount() {
+    /* 订阅：
+        subscribe(msg,data)接受两个参数
+          msg: 频道名
+          data：数据
+    */
     this.token = PubSub.subscribe('updateAppState', (_, data) => {
       this.setState(data)
     });

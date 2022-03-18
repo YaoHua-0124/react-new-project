@@ -4,6 +4,9 @@ import PubSub from 'pubsub-js'
 
 export default class Search extends Component {
   getSearchWords = () => {
+    /*发布：
+      publish(频道名，数据)
+    */
     PubSub.publish('updateAppState', {isFristLoad: false, isLoading: true});
     const {keyWords:{value}} = this
     axios.get(`/api1/search/users?q=${value}`).then(

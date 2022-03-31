@@ -12,7 +12,7 @@
   if (preState === undefined) preState = []
   const {type, data} = action
   switch (type) {
-    case 'add':
+    case 'addPerson':
       return [data, ...preState]
     default:
       return preState

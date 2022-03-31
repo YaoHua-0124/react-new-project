@@ -2,9 +2,9 @@
   该文件专门为Person组件生成action对象
 */
 
-export function createAddAction(data) {
+export function createAddPersonAction(data) {
   return {
-    type:'add',
+    type:'addPerson',
     data
   }
 }

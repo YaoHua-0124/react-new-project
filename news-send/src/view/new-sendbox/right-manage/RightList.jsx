@@ -1,30 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import {Table, Tag, Button, Popconfirm} from 'antd'
+import {Table, Tag, Button, Popconfirm, Popover, Switch} from 'antd'
 import axios from 'axios'
 import {
-  PlusOutlined,
-  DeleteOutlined
+  EditOutlined,
+  DeleteOutlined,
+  CheckOutlined,
+  CloseOutlined
 } from '@ant-design/icons';
 
-export default function RightList(props) {
+export default function RightList() {
 
   const [rightList, setrightList] = useState([])
 
-  useEffect( () => {
+  const getList = () => {
     axios.get("http://localhost:8000/rights?_embed=children").then( res => {
       const list = res.data
-      list.findIndex((item, index)=>{
+      list.forEach( (item,index) => {
         if(!item.children.length) list[index].children = ""
-      })
+      });
       setrightList(list)
     })
+  }
+  useEffect( () => {
+    getList()
   }, [])
 
   const delectRight = (item) => {
     return () => {
-      setrightList(rightList.filter(data => data.id!==item.id))
-      axios.delete(`http://localhost:8000/rights/${item.id}`).then(() => {
-        
+      if(item.grade !== 1){
+        // let list = rightList.filter( data => data.id === item.rightId )
+        // list[0].children = list[0].children.filter(data => data.id!==item.id)
+        // setrightList([...rightList])
+        axios.delete(`http://localhost:8000/children/${item.id}`).then(() => {
+          getList()
+        })
+      } else {
+        setrightList(rightList.filter(data => data.id!==item.id))
+        axios.delete(`http://localhost:8000/rights/${item.id}`).then(() => {
+
+        })
+      }
+    }
+  }
+  const changeSwitch = (item) => {
+    item.pagepermisson = item.pagepermisson? 0:1
+    setrightList([...rightList])
+    if(item.grade === 1){
+      axios.patch(`http://localhost:8000/rights/${item.id}`, {
+        pagepermisson: item.pagepermisson
+      })
+    } else {
+      axios.patch(`http://localhost:8000/children/${item.id}`, {
+        pagepermisson: item.pagepermisson
       })
     }
   }
@@ -55,7 +82,15 @@ export default function RightList(props) {
       title: '操作',
       render: (item) => {
         return <div>
-          <Button title="添加权限" type="primary" shape="circle" icon={<PlusOutlined />}></Button>
+          <Popover content={ <div style={{textAlign:"center"}}>
+                            <Switch checkedChildren={<CheckOutlined />}
+                                    unCheckedChildren={<CloseOutlined />}
+                                    defaultChecked
+                                    checked={item.pagepermisson}
+                                    onClick={() => changeSwitch(item) }/></div>}
+                   title="权限开关" trigger={item.pagepermisson !== undefined?'click':''}>
+            <Button  disabled={item.pagepermisson === undefined} title="编辑权限" type="primary" shape="circle" icon={<EditOutlined />} style={{marginRight: "10px"}}></Button>
+          </Popover>
           <Popconfirm title="确定删除吗？" okText="确定" cancelText="关闭" onConfirm={delectRight(item)}>
             <Button title="清除权限" type="primary" danger shape="circle" icon={<DeleteOutlined /> }></Button>
           </Popconfirm>
@@ -66,6 +101,7 @@ export default function RightList(props) {
 
   return (
     <div>
+      <Button type="primary">添加用户</Button>
       <Table dataSource={rightList} columns={columns} />
     </div>
   )
